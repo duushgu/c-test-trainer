@@ -145,8 +145,16 @@ export const CustomGeneratorView: React.FC = () => {
       {passage && (
         <div className="space-y-6">
           <div className="flex items-center justify-between px-2">
-            <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-[#939ab7]">
-              <span>Passage generated with {passage.totalGaps} gaps.</span>
+            <div className="flex items-center gap-2 text-xs font-semibold">
+              {passage.totalGaps > 0 ? (
+                <span className="text-emerald-600 dark:text-[#a6da95]">
+                  ✓ Generated {passage.totalGaps} gaps across {passage.sentences.length} sentences.
+                </span>
+              ) : (
+                <span className="text-amber-600 dark:text-[#f5a97f]">
+                  ⚠ No gaps generated. Please provide at least 2–3 complete English sentences.
+                </span>
+              )}
             </div>
 
             <div className="flex items-center gap-3">

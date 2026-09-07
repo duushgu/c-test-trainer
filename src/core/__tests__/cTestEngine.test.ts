@@ -125,4 +125,15 @@ Today, quantum information science promises to transform computation, cryptograp
       expect(ctest.sentences[ctest.sentences.length - 1].isLeadOut).toBe(true);
     });
   });
+
+  it('correctly handles Wikipedia text with [citation needed] and abbreviation boundary', () => {
+    const wikiText = `In literary theory, a text is any object that can be read, literally or figuratively, whether this object is a work of literature, a street sign, an arrangement of buildings on a city block, or styles of clothing.[citation needed] It is a set of signs that is available to be reconstructed by a reader (or observer) if sufficient interpretants are available.[citation needed] This set of signs is considered in terms of the informative message's content, rather than in terms of its physical form or the medium in which it is represented.[citation needed]
+
+Within the field of literary criticism, "text" also refers to the original information content of a particular piece of writing; that is, the "text" of a work is that primal symbolic arrangement of letters as originally composed, apart from later alterations, deterioration, commentary, translations, paratext, etc. Therefore, when literary criticism is concerned with the determination of a "text", it is concerned with the distinguishing of the original information content from whatever has been added to or subtracted from that content as it appears in a given textual document (that is`;
+
+    const ctest = generateCTest(wikiText, { targetGaps: 20 });
+    expect(ctest.sentences.length).toBe(5);
+    expect(ctest.gaps.length).toBe(20);
+    expect(ctest.sentences[0].isLeadIn).toBe(true);
+  });
 });

@@ -53,17 +53,45 @@ export function calculateGapSplit(word: string): { prefix: string; suffix: strin
 }
 
 /**
- * Splits text into sentences while respecting common abbreviations
+ * Preprocesses raw text by cleaning web/Wikipedia citations, bracketed notes, and fixing punctuation spacing.
+ */
+export function cleanAndPreprocessText(text: string): string {
+  // Strip bracketed citations like [citation needed], [1], [note 1], [edit], [12]
+  let cleaned = text.replace(/\[\s*(?:citation needed|\d+|note \d+|edit|clarification needed|source\?)[^\]]*\]/gi, '');
+  
+  // Normalize punctuation spacing: if period/exclamation/question is immediately followed by a capital letter without space
+  cleaned = cleaned.replace(/([.!?])(?=[A-Z])/g, '$1 ');
+
+  return cleaned.trim();
+}
+
+/**
+ * Splits text into sentences while respecting common abbreviations, quotes, and web artifacts.
  */
 export function splitIntoSentences(text: string): string[] {
-  // Protect common abbreviations (e.g., Dr., Prof., e.g., i.e., et al., etc.)
-  const protectedText = text
-    .replace(/\b(e\.g\.|i\.e\.|et al\.|etc\.|Dr\.|Prof\.|Mr\.|Mrs\.|Ms\.|vs\.)\s/gi, (match) => match.replace(/\./g, '__DOT__'));
+  const cleaned = cleanAndPreprocessText(text);
 
+  // Protect common abbreviations strictly when followed by lowercase letters or numbers (case-sensitive)
+  const protectedText = cleaned
+    .replace(/\b(e\.g\.|i\.e\.|et al\.|Dr\.|Prof\.|Mr\.|Mrs\.|Ms\.|vs\.)\s+(?=[a-z0-9])/g, (match) => match.replace(/\./g, '__DOT__'))
+    .replace(/\betc\.\s+(?=[a-z,])/g, 'etc__DOT__ ');
+
+  // Split on sentence-terminating punctuation followed by quotes/parens and whitespace or newline
   const rawSentences = protectedText
-    .split(/(?<=[.!?])\s+/)
+    .split(/(?<=[.!?]["'»”’\)]?)(?:\s+|\n+)/)
     .map((s) => s.replace(/__DOT__/g, '.').trim())
     .filter((s) => s.length > 0);
+
+  // Fallback: If no sentence punctuation exists at all (e.g. user pasted a single long block), split on semicolons or newlines
+  if (rawSentences.length === 1 && cleaned.length > 120) {
+    const clauseSplit = cleaned
+      .split(/(?<=[;:])(?:\s+|\n+)/)
+      .map((s) => s.trim())
+      .filter((s) => s.length > 0);
+    if (clauseSplit.length > 1) {
+      return clauseSplit;
+    }
+  }
 
   return rawSentences;
 }
@@ -112,23 +140,36 @@ export function generateCTest(
 
   sentencesRaw.forEach((sentenceText, sIndex) => {
     const isLeadIn = sIndex === 0;
-    const isLeadOut = sentenceCount >= 3 && sIndex === sentenceCount - 1;
 
-    // Sentence 1 and the final sentence stay completely intact
-    if (isLeadIn || isLeadOut) {
+    // Sentence 1 is ALWAYS 100% intact lead-in
+    if (isLeadIn) {
       sentences.push({
         index: sIndex,
         rawText: sentenceText,
         tokens: [{ type: 'plain', text: sentenceText }],
-        isLeadIn,
-        isLeadOut,
+        isLeadIn: true,
+        isLeadOut: false,
       });
       return;
     }
 
-    // Parse tokens within gap-eligible middle sentences
+    // Lead-out sentence: If sentenceCount >= 4 and we have already reached or almost reached target gaps,
+    // keep the final sentence completely intact as lead-out
+    const isLeadOut = sentenceCount >= 4 && sIndex === sentenceCount - 1 && gaps.length >= targetGaps;
+
+    if (isLeadOut) {
+      sentences.push({
+        index: sIndex,
+        rawText: sentenceText,
+        tokens: [{ type: 'plain', text: sentenceText }],
+        isLeadIn: false,
+        isLeadOut: true,
+      });
+      return;
+    }
+
+    // Parse tokens within gap-eligible sentences
     const tokens: Token[] = [];
-    // Regex splits word characters from punctuation and whitespace
     const tokenRegex = /([a-zA-Z]+|[^a-zA-Z\s]+|\s+)/g;
     const parts = sentenceText.match(tokenRegex) || [sentenceText];
 
@@ -146,7 +187,6 @@ export function generateCTest(
         if (eligible && gaps.length < targetGaps) {
           gapCandidateCounter++;
           // Rule: Starting with word 2, every second eligible word is truncated
-          // gapCandidateCounter: 1 = untouched, 2 = gap, 3 = untouched, 4 = gap ...
           if (gapCandidateCounter % 2 === 0) {
             const split = calculateGapSplit(part);
             const gapId = `gap-${gaps.length}`;
@@ -183,8 +223,8 @@ export function generateCTest(
       index: sIndex,
       rawText: sentenceText,
       tokens,
-      isLeadIn,
-      isLeadOut,
+      isLeadIn: false,
+      isLeadOut: sIndex === sentenceCount - 1,
     });
   });
 
