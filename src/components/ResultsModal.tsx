@@ -50,40 +50,40 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
   const getBadgeColor = (level: BatteryScore['cefrLevel']) => {
     switch (level) {
       case 'C2':
-        return 'bg-purple-100 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border-purple-300 dark:border-purple-800';
+        return 'bg-purple-50 text-purple-700 dark:bg-[#24273a] dark:text-[#c6a0f6] border-purple-300 dark:border-[#c6a0f6]/40';
       case 'C1':
-        return 'bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border-blue-300 dark:border-blue-800';
+        return 'bg-blue-50 text-blue-700 dark:bg-[#24273a] dark:text-[#b7bdf8] border-blue-300 dark:border-[#b7bdf8]/40';
       case 'B2':
-        return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800';
+        return 'bg-emerald-50 text-emerald-700 dark:bg-[#24273a] dark:text-[#a6da95] border-emerald-300 dark:border-[#a6da95]/40';
       case 'B1':
-        return 'bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border-amber-300 dark:border-amber-800';
+        return 'bg-amber-50 text-amber-700 dark:bg-[#24273a] dark:text-[#f5a97f] border-amber-300 dark:border-[#f5a97f]/40';
       default:
-        return 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 border-slate-300 dark:border-slate-700';
+        return 'bg-slate-50 text-slate-700 dark:bg-[#24273a] dark:text-[#cad3f5] border-slate-300 dark:border-[#363a4f]';
     }
   };
 
   return (
-    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-xl max-w-4xl mx-auto my-8 transition-all">
+    <div className="bg-white dark:bg-[#1e2030] border border-slate-200 dark:border-[#363a4f] rounded-3xl p-6 sm:p-10 shadow-xl max-w-4xl mx-auto my-8 transition-all">
       {/* Top Banner */}
-      <div className="text-center pb-8 border-b border-slate-100 dark:border-slate-800">
-        <div className="inline-flex p-3 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 mb-4 border border-blue-100 dark:border-blue-900">
+      <div className="text-center pb-8 border-b border-slate-100 dark:border-[#2e3248]">
+        <div className="inline-flex p-3 rounded-2xl bg-purple-50 dark:bg-[#24273a] text-purple-600 dark:text-[#c6a0f6] mb-4 border border-purple-100 dark:border-[#c6a0f6]/30">
           <Award className="w-10 h-10" />
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-[#cad3f5]">
           C-Test Battery Evaluation
         </h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-lg mx-auto">
+        <p className="text-sm text-slate-500 dark:text-[#939ab7] mt-1 max-w-lg mx-auto">
           Standardized psychometric score calculated based on the complete battery of authentic passages.
         </p>
 
         {/* Big Score Card */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-6">
-          <div className="text-center px-6 py-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
-            <span className="text-xs uppercase font-mono text-slate-400 tracking-wider">Score</span>
-            <div className="text-4xl font-extrabold font-mono text-slate-900 dark:text-white mt-1">
+          <div className="text-center px-6 py-4 rounded-2xl bg-slate-50 dark:bg-[#24273a] border border-slate-200 dark:border-[#363a4f]">
+            <span className="text-xs uppercase font-mono text-slate-400 dark:text-[#939ab7] tracking-wider">Score</span>
+            <div className="text-4xl font-extrabold font-mono text-slate-900 dark:text-[#cad3f5] mt-1">
               {score.correctGaps} <span className="text-xl text-slate-400 font-normal">/ {score.totalGaps}</span>
             </div>
-            <span className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+            <span className="text-xs font-semibold text-purple-600 dark:text-[#b7bdf8]">
               {score.percentage}% Accuracy
             </span>
           </div>
@@ -102,7 +102,7 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
 
       {/* Breakdown per Passage */}
       <div className="mt-8 space-y-4">
-        <h3 className="text-base font-bold text-slate-900 dark:text-white">
+        <h3 className="text-base font-bold text-slate-900 dark:text-[#cad3f5]">
           Passage-by-Passage Breakdown
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -111,11 +111,11 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
             return (
               <div
                 key={pScore.passageId}
-                className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800"
+                className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-[#24273a] border border-slate-200 dark:border-[#363a4f]"
               >
                 <div>
-                  <span className="text-xs font-mono text-slate-400">Passage {idx + 1}</span>
-                  <h4 className="text-sm font-semibold text-slate-800 dark:text-slate-200 line-clamp-1">
+                  <span className="text-xs font-mono text-slate-400 dark:text-[#939ab7]">Passage {idx + 1}</span>
+                  <h4 className="text-sm font-semibold text-slate-800 dark:text-[#cad3f5] line-clamp-1">
                     {passage?.title || pScore.passageId}
                   </h4>
                 </div>
@@ -123,13 +123,13 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
                   <span
                     className={
                       pScore.percentage >= 70
-                        ? 'text-emerald-600 dark:text-emerald-400'
-                        : 'text-amber-600 dark:text-amber-400'
+                        ? 'text-emerald-600 dark:text-[#a6da95]'
+                        : 'text-amber-600 dark:text-[#f5a97f]'
                     }
                   >
                     {pScore.correctGaps} / {pScore.totalGaps}
                   </span>
-                  <div className="text-xs font-normal text-slate-400">
+                  <div className="text-xs font-normal text-slate-400 dark:text-[#939ab7]">
                     {pScore.percentage}%
                   </div>
                 </div>
@@ -140,17 +140,17 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
       </div>
 
       {/* Anki Integration Section */}
-      <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800/80 border border-blue-200 dark:border-slate-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="mt-8 p-6 rounded-2xl bg-purple-50/40 dark:bg-[#24273a] border border-purple-200/60 dark:border-[#c6a0f6]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
-            <span className="px-2 py-0.5 rounded text-[11px] font-mono font-semibold bg-blue-600 text-white">
+            <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-purple-600 dark:bg-[#c6a0f6] text-white dark:text-[#181926]">
               Anki SRS Bridge
             </span>
-            <h4 className="text-sm font-bold text-slate-900 dark:text-white">
+            <h4 className="text-sm font-bold text-slate-900 dark:text-[#cad3f5]">
               Export Mistakes as Cloze Deletions
             </h4>
           </div>
-          <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 max-w-md">
+          <p className="text-xs text-slate-600 dark:text-[#b8c0e0] mt-1 max-w-md">
             {allFailedCards.length > 0
               ? `Found ${allFailedCards.length} sentences with gaps you missed. Export them directly to import into Anki with standard {{c1::...}} cloze format.`
               : 'Flawless performance! You made zero errors across this entire battery.'}
@@ -160,7 +160,7 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
         {allFailedCards.length > 0 && (
           <button
             onClick={handleExportAnki}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-md shadow-blue-500/20 transition-all shrink-0 cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 dark:bg-[#c6a0f6] hover:bg-purple-700 dark:hover:bg-[#b7bdf8] text-white dark:text-[#181926] font-semibold text-xs shadow-xs transition-all shrink-0 cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>Download Anki Deck ({allFailedCards.length} Cards)</span>
@@ -169,10 +169,10 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
       </div>
 
       {/* Action Buttons */}
-      <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+      <div className="mt-8 pt-6 border-t border-slate-100 dark:border-[#2e3248] flex flex-wrap items-center justify-between gap-4">
         <button
           onClick={onRetry}
-          className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-300 dark:border-[#363a4f] text-slate-700 dark:text-[#cad3f5] font-semibold text-xs hover:bg-slate-100 dark:hover:bg-[#24273a] transition-colors cursor-pointer"
         >
           <RotateCcw className="w-4 h-4" />
           <span>Retry This Battery</span>
@@ -180,7 +180,7 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
 
         <button
           onClick={onNextBattery}
-          className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer"
+          className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-[#c6a0f6] text-white dark:text-[#181926] font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer"
         >
           <span>Choose Another Battery</span>
           <ArrowRight className="w-4 h-4" />

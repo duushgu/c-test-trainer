@@ -113,9 +113,9 @@ Today, quantum information science promises to transform computation, cryptograp
     });
   });
 
-  it('generates valid C-tests for all 20 curated academic passages in the library', async () => {
+  it('generates valid C-tests for all 35 curated academic passages in the library', async () => {
     const { RAW_PASSAGES } = await import('../../data/passages');
-    expect(RAW_PASSAGES.length).toBe(20);
+    expect(RAW_PASSAGES.length).toBe(35);
 
     RAW_PASSAGES.forEach((p) => {
       const ctest = generateCTest(p.rawText, { targetGaps: 20 });

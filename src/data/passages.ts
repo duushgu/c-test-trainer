@@ -14,29 +14,54 @@ export const PRESET_BATTERIES = [
     title: 'Battery 1: Theoretical Physics & Mathematical Sciences',
     description: 'Quantum mechanics, general relativity, nonlinear dynamics, and statistical physics.',
     difficulty: 'C1/C2',
+    category: 'STEM',
   },
   {
     id: 'battery-2',
     title: 'Battery 2: Computer Science & Computational Logic',
     description: 'Turing computability, deep learning architectures, cryptography, and complexity theory.',
     difficulty: 'C1',
+    category: 'STEM',
   },
   {
     id: 'battery-3',
     title: 'Battery 3: Quantitative Economics & Game Theory',
     description: 'Nash equilibrium, market efficiency, monetary policy, and behavioral dynamics.',
     difficulty: 'B2/C1',
+    category: 'Social Sciences',
   },
   {
     id: 'battery-4',
     title: 'Battery 4: Cognitive Science & Scientific Philosophy',
     description: 'Epistemology, paradigm shifts, neuroplasticity, and human decision-making under uncertainty.',
     difficulty: 'C1/C2',
+    category: 'Humanities & Mind',
+  },
+  {
+    id: 'battery-5',
+    title: 'Battery 5: Global History, Geopolitics & Diplomacy',
+    description: 'The Silk Road, Westphalian sovereignty, maritime routes, and civilizational shifts.',
+    difficulty: 'C1',
+    category: 'Humanities & History',
+  },
+  {
+    id: 'battery-6',
+    title: 'Battery 6: Literary Studies, Art History & Architecture',
+    description: 'Modernist narrative, Gothic structural design, Renaissance humanism, and Impressionist optics.',
+    difficulty: 'C1/C2',
+    category: 'Arts & Culture',
+  },
+  {
+    id: 'battery-7',
+    title: 'Battery 7: Sociology, Cultural Anthropology & Ecology',
+    description: 'Urbanization dynamics, collective memory, common-pool resources, and language preservation.',
+    difficulty: 'B2/C1',
+    category: 'Society & Ecology',
   },
 ];
 
 export const RAW_PASSAGES: RawPassageData[] = [
-  // --- BATTERY 1: Physics & Math ---
+  // ==================== BATTERY 1: Physics & Math ====================
   {
     id: 'phys-01',
     batteryId: 'battery-1',
@@ -83,7 +108,7 @@ export const RAW_PASSAGES: RawPassageData[] = [
     rawText: `Prime numbers constitute the fundamental atomic building blocks of natural numbers through the fundamental theorem of arithmetic. Despite their elementary definition, the global distribution of primes across the real number line remains one of the deepest enigmas in pure mathematics. The famous Riemann hypothesis postulates that all non-trivial complex zeros of the zeta function possess a real part precisely equal to one-half. Contemporary asymmetrical public-key cryptography heavily relies upon the computational intractability of decomposing enormous composite integers into their constituent prime factors.`,
   },
 
-  // --- BATTERY 2: Computer Science & AI ---
+  // ==================== BATTERY 2: Computer Science & AI ====================
   {
     id: 'cs-01',
     batteryId: 'battery-2',
@@ -130,7 +155,7 @@ export const RAW_PASSAGES: RawPassageData[] = [
     rawText: `Claude Shannon founded mathematical communication theory by quantifying the fundamental limits of data compression and reliable transmission over noisy channels. He defined information entropy as the expected mathematical value of uncertainty contained in a stochastic source message. Shannon demonstrated that error-free data communication is achievable up to a definitive theoretical channel capacity through appropriate error-correcting codes. Source coding theorems rigorously establish the minimum average number of binary digits required to represent messages without irreversible loss. This revolutionary analytical formulation bridged abstract probability theory with electrical engineering, laying the vital theoretical substrate for modern digital telecommunications.`,
   },
 
-  // --- BATTERY 3: Quantitative Economics & Finance ---
+  // ==================== BATTERY 3: Economics & Quantitative Finance ====================
   {
     id: 'econ-01',
     batteryId: 'battery-3',
@@ -177,7 +202,7 @@ export const RAW_PASSAGES: RawPassageData[] = [
     rawText: `The Black-Scholes-Merton mathematical model revolutionized financial derivatives valuation by formulating a closed-form analytical solution for European options. The derivation relies upon constructing a continuously rebalanced riskless hedge portfolio comprising the underlying asset and a risk-free bond. Under the mathematical assumption that underlying asset prices follow geometric Brownian motion with constant volatility, the option price satisfies a second-order parabolic partial differential equation. This continuous-time quantitative methodology spurred explosive growth in global derivatives trading and established mathematical financial engineering as an independent discipline.`,
   },
 
-  // --- BATTERY 4: Cognitive Science & Philosophy ---
+  // ==================== BATTERY 4: Cognitive Science & Philosophy ====================
   {
     id: 'phil-01',
     batteryId: 'battery-4',
@@ -222,5 +247,146 @@ export const RAW_PASSAGES: RawPassageData[] = [
     domain: 'Philosophy of Mind',
     difficulty: 'C2',
     rawText: `David Chalmers famously distinguished between the relatively straightforward technical questions of cognitive neurobiology and the hard problem of subjective consciousness. Easy scientific problems involve explaining objective cognitive functions, such as sensory discrimination, memory recall, and attentional focus. In sharp contrast, the hard problem questions why the physical execution of information processing inside biological brains is accompanied by subjective phenomenal experience at all. Explaining functional behavioral mechanisms leaves an explanatory gap regarding why subjective qualia accompany neural dynamics. Why should complex electro-chemical interactions give rise to the inner qualitative feeling of experiencing redness or experiencing acute physical pain?`,
+  },
+
+  // ==================== BATTERY 5: Global History & Geopolitics ====================
+  {
+    id: 'hist-01',
+    batteryId: 'battery-5',
+    batteryTitle: 'Global History, Geopolitics & Diplomacy',
+    title: 'The Silk Road and Transcontinental Exchange',
+    domain: 'World History',
+    difficulty: 'C1',
+    rawText: `The ancient Silk Road comprised an expansive network of overland trade routes that interconnected East Asia with the Mediterranean basin across vast Eurasian terrains. Commercial merchants transported high-value luxury commodities such as Chinese silk, porcelain, rare spices, and precious glassware along arduous desert corridors. Beyond material merchandise, these commercial arteries served as vital conduits for religious traditions, scientific methodologies, technological innovations, and artistic styles. Urban commercial hubs flourished along fertile oasis valleys, facilitating diplomatic alliances and multilingual cross-cultural dialogues across diverse nomadic and sedentary civilizations. The eventual emergence of maritime trade routes diminished overland caravan profitability, initiating structural shifts in global geopolitical influence.`,
+  },
+  {
+    id: 'hist-02',
+    batteryId: 'battery-5',
+    batteryTitle: 'Global History, Geopolitics & Diplomacy',
+    title: 'The Peace of Westphalia and National Sovereignty',
+    domain: 'Diplomatic History',
+    difficulty: 'C1',
+    rawText: `The Peace of Westphalia established the foundational legal architecture for modern international relations by concluding decades of devastating pan-European religious warfare. Diplomatic plenipotentiaries recognized the fundamental principle that sovereign nation-states maintain supreme domestic jurisdictional authority over their designated territorial borders without foreign ecclesiastical interference. Mutual recognition of state autonomy fundamentally transformed intergovernmental statecraft from imperial feudal hierarchies into secular balances of power. Treaties institutionalized regularized diplomatic congresses, resident embassies, and codified international conventions governing territorial integrity and maritime commerce. Modern global governance frameworks continue to operate upon these enduring conceptual doctrines of sovereign equality and non-intervention.`,
+  },
+  {
+    id: 'hist-03',
+    batteryId: 'battery-5',
+    batteryTitle: 'Global History, Geopolitics & Diplomacy',
+    title: 'The Great Library of Alexandria and Ancient Scholarship',
+    domain: 'Classical History',
+    difficulty: 'B2',
+    rawText: `The royal Library of Alexandria symbolized the ambitious Hellenistic quest to synthesize universal intellectual knowledge under royal Ptolemaic patronization. Ancient scholars systematically collected, transcribed, cataloged, and critically evaluated hundreds of thousands of papyrus scrolls spanning astronomical geometry, medical treatises, and lyrical poetry. Eminent resident mathematicians like Eratosthenes accurately measured the physical circumference of planet Earth using subtle solar shadow angles. Rigorous philological methodologies established authoritative critical recensions of classical epic literature that preserved Homeric verse for subsequent generations. The gradual physical decline of the institution remains a poignant historical metaphor regarding the civilizational fragility of human cultural repositories.`,
+  },
+  {
+    id: 'hist-04',
+    batteryId: 'battery-5',
+    batteryTitle: 'Global History, Geopolitics & Diplomacy',
+    title: 'Maritime Navigation and Global Exploration',
+    domain: 'Maritime History',
+    difficulty: 'C1',
+    rawText: `The rapid expansion of early modern oceanic navigation revolutionized human geography by connecting previously isolated continental landmasses into unified transoceanic circuits. Portuguese and Spanish navigators combined magnetic compass orientation with celestial astrolabe measurements to chart unpredictable prevailing wind systems across open equatorial waters. Establishing reliable maritime trade passages circumvented traditional terrestrial tariff bottlenecks and stimulated unprecedented commercial exchange between remote geographical territories. Oceanic voyages initiated extensive biological translocations of agricultural crops, domesticated fauna, and infectious pathogens with profound ecological and demographic repercussions. Intercontinental naval supremacy soon emerged as the primary determinant governing imperial expansion and mercantilist commercial hegemony worldwide.`,
+  },
+  {
+    id: 'hist-05',
+    batteryId: 'battery-5',
+    batteryTitle: 'Global History, Geopolitics & Diplomacy',
+    title: 'The Industrial Revolution and Urban Transformation',
+    domain: 'Economic History',
+    difficulty: 'C1',
+    rawText: `The British Industrial Revolution engineered an unprecedented structural transformation from traditional agrarian subsistence economies toward centralized fossil-fueled factory production. Mechanized textile machinery driven by stationary steam engines concentrated formerly dispersed cottage artisans into rapidly proliferating manufacturing cities. Demographic migration toward industrial urban centers created severe housing overcrowding, occupational hazards, and structural disparities between capital owners and manual wage laborers. Concurrently, technological breakthroughs in metallurgical smelting and locomotive railway transport integrated domestic commercial marketplaces with extraordinary efficiency. These profound socio-economic dislocations sparked extensive legislative labor reforms and catalyzed the intellectual formulation of modern political economy.`,
+  },
+
+  // ==================== BATTERY 6: Literature, Art & Architecture ====================
+  {
+    id: 'art-01',
+    batteryId: 'battery-6',
+    batteryTitle: 'Literary Studies, Art History & Architecture',
+    title: 'Modernist Literature and Stream of Consciousness',
+    domain: 'Literary Theory',
+    difficulty: 'C1',
+    rawText: `Early twentieth-century modernist novelists dismantled conventional nineteenth-century narrative structures to represent the fragmented psychological complexity of modern subjective consciousness. Rather than maintaining omniscient linear storytelling, authors like James Joyce and Virginia Woolf developed the stylistic technique known as stream of consciousness. This sophisticated literary approach mirrors internal perceptual associations, fleeting sensory impressions, and unedited mnemonic reflections unfolding continuously within the human psyche. Disrupting chronological syntax and introducing multilingual polyphony challenged traditional expectations regarding objective narrative coherence and authorial authority. Modernist textual experiments indelibly expanded the expressive boundaries of literary fiction throughout the contemporary era.`,
+  },
+  {
+    id: 'art-02',
+    batteryId: 'battery-6',
+    batteryTitle: 'Literary Studies, Art History & Architecture',
+    title: 'Gothic Architecture and Structural Vaulting',
+    domain: 'Architectural History',
+    difficulty: 'B2',
+    rawText: `Medieval Gothic cathedral architecture represented a monumental engineering synthesis of aesthetic aspiration and advanced geometrical masonry construction. Master stonemasons replaced oppressive Romanesque barrel vaulting with innovative pointed arches, ribbed groin vaults, and exterior flying buttresses. These revolutionary load-bearing structural innovations diverted heavy downward gravitational forces away from vertical perimeter masonry walls toward external ground piers. Consequently, master builders could pierce cavernous church naves with luminous stained glass clerestory windows that dissolved heavy interior shadows. The soaring upward verticality symbolized divine transcendence while establishing rigorous mathematical precedents for modern structural engineering.`,
+  },
+  {
+    id: 'art-03',
+    batteryId: 'battery-6',
+    batteryTitle: 'Literary Studies, Art History & Architecture',
+    title: 'Renaissance Humanism and Linear Perspective',
+    domain: 'Art History',
+    difficulty: 'C1',
+    rawText: `The Italian Renaissance fundamentally transformed European pictorial representation by integrating humanist philosophy with rigorous Euclidean geometrical optics. Florentine architect Filippo Brunelleschi mathematically formalized the principles of artificial linear perspective utilizing a single unified horizon vanishing point. Painters like Leonardo da Vinci and Raphael deployed proportional orthogonal orthogonals and atmospheric aerial sfumato to simulate convincing three-dimensional depth on planar surfaces. Classical anatomical dissection informed sculptural representations of the organic human physique with unprecedented naturalistic anatomical accuracy. This profound intellectual convergence of visual aesthetics and empirical observation prefigured the methodology of the early modern scientific revolution.`,
+  },
+  {
+    id: 'art-04',
+    batteryId: 'battery-6',
+    batteryTitle: 'Literary Studies, Art History & Architecture',
+    title: 'Impressionism and the Optical Physics of Color',
+    domain: 'Art History',
+    difficulty: 'C1',
+    rawText: `The French Impressionist movement departed from academic studio traditions by capturing the transient optical sensations of natural sunlight directly en plein air. Emerging painters discarded smooth monochromatic glazing techniques in favor of applying unblended pure pigment strokes adjacent to one another across the textured canvas. Chevreul's contemporary discoveries in optical contrast demonstrated that juxtaposed complementary hues blend additively inside the human visual cortex, generating enhanced perceived chromatic brilliance. Depicting fleeting atmospheric conditions and dynamic leisure activities celebrated contemporary metropolitan life while challenging conservative academic salons. Their daring visual innovations dismantled rigid artistic conventions and inaugurated the vibrant trajectory of modern avant-garde painting.`,
+  },
+  {
+    id: 'art-05',
+    batteryId: 'battery-6',
+    batteryTitle: 'Literary Studies, Art History & Architecture',
+    title: 'The Evolution of the Novel as Social Critique',
+    domain: 'Comparative Literature',
+    difficulty: 'C2',
+    rawText: `The rise of the Western novel provided an expansive narrative vehicle for examining moral tensions and social mobility within rapidly industrializing societies. Realist authors like Charles Dickens and Gustave Flaubert scrutinized institutional hypocrisy, bourgeois complacency, and judicial corruption through detailed sociological panoramas. Polyphonic narrative perspectives enabled marginalized voices and competing ideological viewpoints to interrogate prevailing societal orthodoxies without authoritative didactic commentary. By dramatizing the psychological conflicts of ordinary protagonists against rigid class hierarchies, the novel cultivated profound empathetic identification among diverse reading publics. The genre remains a vital cultural mirror reflecting the ethical anxieties and political transformations of global modernity.`,
+  },
+
+  // ==================== BATTERY 7: Sociology, Anthropology & Ecology ====================
+  {
+    id: 'soc-01',
+    batteryId: 'battery-7',
+    batteryTitle: 'Sociology, Cultural Anthropology & Ecology',
+    title: 'Urbanization and the Metabolism of Mega-Cities',
+    domain: 'Urban Sociology',
+    difficulty: 'C1',
+    rawText: `Contemporary global urbanization has concentrated an unprecedented majority of human populations into expansive interconnected metropolitan regions and megalopolises. Urban sociologists examine modern cities not merely as spatial architectural agglomerations, but as complex social metabolisms demanding immense logistical inflows of energy, water, and foodstuffs. Dense spatial proximities stimulate accelerated economic innovation, artistic collaboration, and occupational diversification while simultaneously generating acute structural residential segregation and atmospheric pollution. Public infrastructural investments in collective transit networks and green spaces fundamentally condition whether rapid municipal expansion fosters egalitarian social integration or deepens spatial divides. Sustainable urban planning increasingly demands harmonizing dense economic clustering with ecological regenerative systems.`,
+  },
+  {
+    id: 'soc-02',
+    batteryId: 'battery-7',
+    batteryTitle: 'Sociology, Cultural Anthropology & Ecology',
+    title: 'Collective Memory and Cultural Heritage Preservation',
+    domain: 'Cultural Anthropology',
+    difficulty: 'B2',
+    rawText: `Cultural anthropology demonstrates that human communities maintain communal identity through shared narratives and commemorative symbolic rituals. Sociologist Maurice Halbwachs coined the concept of collective memory to describe how social groups reconstruct past historical events to serve present institutional and emotional needs. Public monuments, ceremonial commemorations, and oral storytelling traditions continually reinforce collective solidarity and intergenerational cultural cohesion. However, historical collective memories remain contested ideological terrains where marginalized groups struggle to recover suppressed historical narratives against dominant state historiography. Preserving intangible cultural heritage fosters social resilience by bridging ancestral wisdom with contemporary community governance.`,
+  },
+  {
+    id: 'soc-03',
+    batteryId: 'battery-7',
+    batteryTitle: 'Sociology, Cultural Anthropology & Ecology',
+    title: 'The Commons and Polycentric Resource Governance',
+    domain: 'Environmental Sociology',
+    difficulty: 'C1',
+    rawText: `Conventional economic theory long assumed that shared natural resources inevitably suffer depletion through unconstrained individual self-interest, a dilemma formalized as the tragedy of the commons. However, Nobel laureate Elinor Ostrom extensively documented that local resource users successfully avoid ecological collapse by devising autonomous polycentric governance arrangements. Communities managing ancestral fisheries, communal pasturelands, and forest watersheds establish participatory monitoring conventions, graduated sanctions, and low-cost conflict resolution arenas without external state coercion. Ostrom's empirical institutional analysis demonstrated that social trust, reciprocal reputation, and communal communication constitute potent sociological remedies against environmental degradation. Her groundbreaking findings provide indispensable guidance for designing resilient polycentric treaties confronting global planetary boundary crises.`,
+  },
+  {
+    id: 'soc-04',
+    batteryId: 'battery-7',
+    batteryTitle: 'Sociology, Cultural Anthropology & Ecology',
+    title: 'Sociolinguistic Variation and Social Stratification',
+    domain: 'Sociolinguistics',
+    difficulty: 'C1',
+    rawText: `Sociolinguistics investigates how systematic variations in spoken language patterns correlate with socio-economic class, regional geographic origin, and communal identity. Pioneering field research by William Labov revealed that phonological pronunciations and syntactic structures are not arbitrary speech idiosyncrasies, but socially stratified communicative markers. Standard prestige dialects are institutionalized through formal academic educational systems, conferring symbolic cultural capital upon fluent speakers while stigmatizing non-standard vernacular varieties. Crucially, descriptive linguistics demonstrates that vernacular dialects possess fully coherent, internally rigorous grammatical conventions that convey nuanced cultural meanings and communal solidarity. Analyzing linguistic attitudes exposes how institutional language policies reflect and reinforce broader socioeconomic power dynamics across multicultural societies.`,
+  },
+  {
+    id: 'soc-05',
+    batteryId: 'battery-7',
+    batteryTitle: 'Sociology, Cultural Anthropology & Ecology',
+    title: 'Ecological Resilience and Planetary Boundaries',
+    domain: 'Human Ecology',
+    difficulty: 'C2',
+    rawText: `The Earth system sciences framework of planetary boundaries defines a safe operating space for human civilizational development within nine critical bio-physical processes. Anthropogenic resource extraction and atmospheric carbon emissions threaten to trigger irreversible nonlinear tipping cascades across polar ice sheets, tropical rainforests, and marine ecosystems. Complex adaptive social-ecological systems exhibit dynamic thresholds where moderate environmental disturbances can precipitate sudden regime shifts into vastly degraded stability states. Fostering socio-ecological resilience requires replacing extractive economic models with regenerative circular resource loops and equitable adaptive stewardship. Navigating these interconnected planetary crises demands unprecedented international scientific coordination and transformative institutional realignments across human societies.`,
   },
 ];

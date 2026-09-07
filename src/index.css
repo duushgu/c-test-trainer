@@ -1,7 +1,39 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --bg-base: #eff1f5;
+    --bg-surface: #e6e9ef;
+    --bg-card: #ffffff;
+    --border-color: #ccd0da;
+    --text-main: #4c4f69;
+    --text-muted: #6c6f85;
+    --accent-lavender: #7287fd;
+    --accent-mauve: #8839ef;
+    --accent-teal: #179299;
+    --accent-peach: #fe640b;
+    --accent-green: #40a02b;
+    --accent-red: #d20f39;
+  }
+
+  .dark {
+    --bg-base: #181926;        /* Catppuccin Crust / Deep Space */
+    --bg-surface: #1e2030;     /* Catppuccin Mantle */
+    --bg-card: #24273a;        /* Catppuccin Macchiato Base */
+    --border-color: #363a4f;   /* Surface 0 */
+    --text-main: #cad3f5;      /* Text */
+    --text-muted: #939ab7;     /* Subtext */
+    --accent-lavender: #b7bdf8;/* Lavender */
+    --accent-mauve: #c6a0f6;   /* Mauve */
+    --accent-teal: #8bd5ca;    /* Teal */
+    --accent-peach: #f5a97f;   /* Peach */
+    --accent-green: #a6da95;   /* Green */
+    --accent-red: #ed8796;     /* Red */
+  }
+
   body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
@@ -10,4 +42,20 @@
 .gap-input {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   letter-spacing: 0.05em;
+}
+
+/* Eye-comfort scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(147, 154, 183, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(147, 154, 183, 0.4);
 }
