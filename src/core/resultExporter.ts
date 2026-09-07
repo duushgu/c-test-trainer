@@ -2,7 +2,36 @@ import type { BatteryScore, PassageScore } from './evaluator';
 import type { CTestPassage } from './cTestEngine';
 
 /**
- * Generates a clean, comprehensive text report for a completed C-Test battery or passage.
+ * Reconstructs the complete passage text with inline gap annotations showing
+ * whether each gap was correctly solved or missed.
+ */
+function buildAnnotatedPassage(passage: CTestPassage, pScore: PassageScore): string {
+  return passage.sentences
+    .map((sentence) => {
+      return sentence.tokens
+        .map((token) => {
+          if (token.type === 'plain') {
+            return token.text;
+          }
+          const evalItem = pScore.evaluations.find((e) => e.gapId === token.gap.id);
+          if (!evalItem) {
+            return `${token.gap.prefix}[${token.gap.suffix}]`;
+          }
+          if (evalItem.isCorrect) {
+            return `${token.gap.prefix}[${evalItem.expectedSuffix} ✓]`;
+          } else {
+            const userStr = evalItem.userAnswer.trim() ? `"${evalItem.userAnswer}"` : 'blank';
+            return `${token.gap.prefix}[${evalItem.expectedSuffix} ✗ (you: ${userStr})]`;
+          }
+        })
+        .join('');
+    })
+    .join(' ');
+}
+
+/**
+ * Generates a clean, comprehensive text report for a completed C-Test battery or passage,
+ * including full original passages, annotated solutions, and itemized gap evaluations.
  */
 export function generateResultReport(
   score: BatteryScore,
@@ -20,12 +49,12 @@ export function generateResultReport(
     minute: '2-digit',
   });
 
-  const divider = '='.repeat(60);
-  const subDivider = '-'.repeat(60);
+  const divider = '='.repeat(70);
+  const subDivider = '-'.repeat(70);
 
   const lines: string[] = [
     divider,
-    '                  C-TEST EVALUATION REPORT',
+    '                     C-TEST EVALUATION REPORT',
     divider,
     `Date & Time:           ${dateStr}, ${timeStr}`,
     `Battery:               ${batteryTitle || 'Standard Battery'}`,
@@ -41,20 +70,45 @@ export function generateResultReport(
     const passage = passages.find((p) => p.id === pScore.passageId);
     const title = passage?.title || `Passage ${idx + 1}`;
     lines.push(
-      `  [${idx + 1}] ${title.padEnd(36)} : ${pScore.correctGaps.toString().padStart(2)} / ${pScore.totalGaps} (${pScore.percentage.toString().padStart(3)}%)`
+      `  [${idx + 1}] ${title.padEnd(38)} : ${pScore.correctGaps.toString().padStart(2)} / ${pScore.totalGaps} (${pScore.percentage.toString().padStart(3)}%)`
     );
   });
 
   lines.push('');
-  lines.push('DETAILED GAP-BY-GAP BREAKDOWN:');
-  lines.push(subDivider);
+  lines.push(divider);
+  lines.push('             FULL PASSAGES & DETAILED GAP ANALYSIS');
+  lines.push(divider);
 
   score.passageScores.forEach((pScore: PassageScore, idx: number) => {
     const passage = passages.find((p) => p.id === pScore.passageId);
     const title = passage?.title || `Passage ${idx + 1}`;
+    const domain = passage?.domain ? ` | Domain: ${passage.domain}` : '';
+    const diff = passage?.difficulty ? ` | Level: ${passage.difficulty}` : '';
 
-    lines.push(`\n--- Passage ${idx + 1}: ${title} (${pScore.correctGaps}/${pScore.totalGaps} - ${pScore.percentage}%) ---`);
+    lines.push('');
+    lines.push(`======================================================================`);
+    lines.push(`PASSAGE ${idx + 1}: ${title.toUpperCase()}`);
+    lines.push(`Score: ${pScore.correctGaps} / ${pScore.totalGaps} (${pScore.percentage}%)${domain}${diff}`);
+    lines.push(`======================================================================`);
 
+    // 1. Full original English text
+    if (passage?.rawText) {
+      lines.push('');
+      lines.push('--- [1. Full Original Reading Text] ---');
+      lines.push(passage.rawText.trim());
+      lines.push('');
+    }
+
+    // 2. Annotated passage with user answers
+    if (passage) {
+      const annotated = buildAnnotatedPassage(passage, pScore);
+      lines.push('--- [2. Passage with Your Answers & Annotations] ---');
+      lines.push(annotated.trim());
+      lines.push('');
+    }
+
+    // 3. Itemized gap breakdown
+    lines.push('--- [3. Itemized Gap Breakdown] ---');
     pScore.evaluations.forEach((evalItem, eIdx) => {
       const num = (eIdx + 1).toString().padStart(2, ' ');
       const status = evalItem.isCorrect ? '✓ CORRECT' : '✗ MISSED ';
@@ -65,13 +119,14 @@ export function generateResultReport(
       } else {
         const yourInput = evalItem.userAnswer.trim() ? `"${evalItem.userAnswer}"` : '(blank)';
         lines.push(
-          `  ${num}. [${status}] ${prompt.padEnd(20)} -> Your input: ${yourInput} | Expected: "${evalItem.prefix}${evalItem.expectedSuffix}"`
+          `  ${num}. [${status}] ${prompt.padEnd(20)} -> Your input: ${yourInput.padEnd(10)} | Expected: "${evalItem.prefix}${evalItem.expectedSuffix}"`
         );
       }
     });
+
+    lines.push('');
   });
 
-  lines.push('');
   lines.push(divider);
   lines.push('Generated by C-Test Trainer · Standardized Psycholinguistic Testing');
   lines.push('Live Web App: https://duushgu.github.io/c-test-trainer/');

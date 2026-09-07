@@ -67,7 +67,7 @@ describe('Result Exporter', () => {
       {
         id: 'p1',
         title: 'Only children',
-        rawText: 'Text',
+        rawText: 'The prevalence of single-child families is a growing demographic trend.',
         sentences: [],
         gaps: [],
         totalGaps: 4,
@@ -84,6 +84,10 @@ describe('Result Exporter', () => {
     expect(report).toContain('Battery 10: UAB Set 3 — Family, Media & Festivals');
     expect(report).toContain('Total Score:           3 / 4 (75%)');
     expect(report).toContain('CEFR Benchmark:        C1 (Effective Operational Proficiency)');
+    expect(report).toContain('[1. Full Original Reading Text]');
+    expect(report).toContain('The prevalence of single-child families');
+    expect(report).toContain('[2. Passage with Your Answers & Annotations]');
+    expect(report).toContain('[3. Itemized Gap Breakdown]');
     expect(report).toContain('[✓ CORRECT]');
     expect(report).toContain('[✗ MISSED ]');
     expect(report).toContain('Expected: "parental"');
