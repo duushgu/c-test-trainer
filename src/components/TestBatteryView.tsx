@@ -319,6 +319,7 @@ export const TestBatteryView: React.FC = () => {
         <ResultsModal
           score={batteryScore}
           passages={batteryPassages}
+          batteryTitle={currentBatteryConfig?.title}
           onRetry={handleRetry}
           onNextBattery={() => {
             const nextIdx =

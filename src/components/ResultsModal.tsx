@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import type { BatteryScore } from '../core/evaluator';
 import type { CTestPassage } from '../core/cTestEngine';
 import { buildSentenceCloze, generateAnkiExportText, downloadAnkiDeck, type AnkiCard } from '../core/ankiExporter';
+import { generateResultReport, downloadResultReport } from '../core/resultExporter';
 import confetti from 'canvas-confetti';
-import { Award, Download, RotateCcw, ArrowRight } from 'lucide-react';
+import { Award, Download, RotateCcw, ArrowRight, FileText, Check } from 'lucide-react';
 
 interface ResultsModalProps {
   score: BatteryScore;
   passages: CTestPassage[];
+  batteryTitle?: string;
   onRetry: () => void;
   onNextBattery: () => void;
 }
@@ -15,6 +17,7 @@ interface ResultsModalProps {
 export const ResultsModal: React.FC<ResultsModalProps> = ({
   score,
   passages,
+  batteryTitle,
   onRetry,
   onNextBattery,
 }) => {
@@ -40,11 +43,25 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
     }
   });
 
+  const [reportExported, setReportExported] = useState(false);
+
   const handleExportAnki = () => {
     if (allFailedCards.length === 0) return;
     const tsvContent = generateAnkiExportText(allFailedCards);
     const dateStr = new Date().toISOString().split('T')[0];
     downloadAnkiDeck(`c_test_anki_mistakes_${dateStr}.txt`, tsvContent);
+  };
+
+  const handleExportReport = () => {
+    const reportText = generateResultReport(score, passages, batteryTitle);
+    const dateStr = new Date().toISOString().split('T')[0];
+    const safeTitle = (batteryTitle || 'c_test_battery')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+    downloadResultReport(`${safeTitle}_results_${dateStr}.txt`, reportText);
+    setReportExported(true);
+    setTimeout(() => setReportExported(false), 3000);
   };
 
   const getBadgeColor = (level: BatteryScore['cefrLevel']) => {
@@ -139,33 +156,50 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
         </div>
       </div>
 
-      {/* Anki Integration Section */}
+      {/* Export & Integration Section */}
       <div className="mt-8 p-6 rounded-2xl bg-purple-50/40 dark:bg-[#24273a] border border-purple-200/60 dark:border-[#c6a0f6]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-purple-600 dark:bg-[#c6a0f6] text-white dark:text-[#181926]">
-              Anki SRS Bridge
+              Exports & SRS
             </span>
             <h4 className="text-sm font-bold text-slate-900 dark:text-[#cad3f5]">
-              Export Mistakes as Cloze Deletions
+              Download Score Report & Anki Flashcards
             </h4>
           </div>
           <p className="text-xs text-slate-600 dark:text-[#b8c0e0] mt-1 max-w-md">
-            {allFailedCards.length > 0
-              ? `Found ${allFailedCards.length} sentences with gaps you missed. Export them directly to import into Anki with standard {{c1::...}} cloze format.`
-              : 'Flawless performance! You made zero errors across this entire battery.'}
+            Save a complete itemized score breakdown for offline study, or export your missed gaps directly into Anki.
           </p>
         </div>
 
-        {allFailedCards.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2.5">
           <button
-            onClick={handleExportAnki}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 dark:bg-[#c6a0f6] hover:bg-purple-700 dark:hover:bg-[#b7bdf8] text-white dark:text-[#181926] font-semibold text-xs shadow-xs transition-all shrink-0 cursor-pointer"
+            onClick={handleExportReport}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-[#363a4f] dark:hover:bg-[#494d64] text-white font-semibold text-xs shadow-xs transition-all shrink-0 cursor-pointer"
           >
-            <Download className="w-4 h-4" />
-            <span>Download Anki Deck ({allFailedCards.length} Cards)</span>
+            {reportExported ? (
+              <>
+                <Check className="w-4 h-4 text-emerald-400" />
+                <span>Report Saved!</span>
+              </>
+            ) : (
+              <>
+                <FileText className="w-4 h-4 text-[#b7bdf8]" />
+                <span>Export Result (.txt)</span>
+              </>
+            )}
           </button>
-        )}
+
+          {allFailedCards.length > 0 && (
+            <button
+              onClick={handleExportAnki}
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 dark:bg-[#c6a0f6] hover:bg-purple-700 dark:hover:bg-[#b7bdf8] text-white dark:text-[#181926] font-semibold text-xs shadow-xs transition-all shrink-0 cursor-pointer"
+            >
+              <Download className="w-4 h-4" />
+              <span>Download Anki Deck ({allFailedCards.length} Cards)</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Action Buttons */}
@@ -178,13 +212,32 @@ export const ResultsModal: React.FC<ResultsModalProps> = ({
           <span>Retry This Battery</span>
         </button>
 
-        <button
-          onClick={onNextBattery}
-          className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-[#c6a0f6] text-white dark:text-[#181926] font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer"
-        >
-          <span>Choose Another Battery</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={handleExportReport}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-purple-300 dark:border-[#c6a0f6]/40 bg-purple-50/50 dark:bg-[#24273a] text-purple-700 dark:text-[#c6a0f6] font-semibold text-xs hover:bg-purple-100 dark:hover:bg-[#363a4f] transition-all cursor-pointer shadow-xs"
+          >
+            {reportExported ? (
+              <>
+                <Check className="w-4 h-4 text-emerald-600 dark:text-[#a6da95]" />
+                <span>Report Saved</span>
+              </>
+            ) : (
+              <>
+                <FileText className="w-4 h-4 text-purple-600 dark:text-[#c6a0f6]" />
+                <span>Export Result</span>
+              </>
+            )}
+          </button>
+
+          <button
+            onClick={onNextBattery}
+            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-slate-900 dark:bg-[#c6a0f6] text-white dark:text-[#181926] font-bold text-xs hover:opacity-90 transition-opacity cursor-pointer"
+          >
+            <span>Choose Another Battery</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );

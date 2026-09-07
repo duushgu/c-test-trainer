@@ -3,7 +3,9 @@ import { generateCTest, type CTestPassage } from '../core/cTestEngine';
 import { PassageCard } from './PassageCard';
 import { evaluatePassage, type PassageScore } from '../core/evaluator';
 import { buildSentenceCloze, generateAnkiExportText, downloadAnkiDeck } from '../core/ankiExporter';
-import { Sparkles, Play, RotateCcw, Download, Check } from 'lucide-react';
+import { generateResultReport, downloadResultReport } from '../core/resultExporter';
+import type { BatteryScore } from '../core/evaluator';
+import { Sparkles, Play, RotateCcw, Download, Check, FileText } from 'lucide-react';
 
 const SAMPLE_TEXTS = [
   {
@@ -65,6 +67,21 @@ export const CustomGeneratorView: React.FC = () => {
     const cards = buildSentenceCloze(passage, failedGaps);
     const tsv = generateAnkiExportText(cards);
     downloadAnkiDeck('custom_ctest_anki.txt', tsv);
+  };
+
+  const handleExportResult = () => {
+    if (!passage || !score) return;
+    const dummyScore: BatteryScore = {
+      totalGaps: score.totalGaps,
+      correctGaps: score.correctGaps,
+      percentage: score.percentage,
+      cefrLevel: score.percentage >= 85 ? 'C2' : score.percentage >= 70 ? 'C1' : score.percentage >= 50 ? 'B2' : 'B1',
+      cefrTitle: 'Custom C-Test Assessment',
+      passageScores: [score],
+    };
+    const reportText = generateResultReport(dummyScore, [passage], passage.title || 'Custom Passage');
+    const dateStr = new Date().toISOString().split('T')[0];
+    downloadResultReport(`custom_ctest_result_${dateStr}.txt`, reportText);
   };
 
   return (
@@ -175,15 +192,25 @@ export const CustomGeneratorView: React.FC = () => {
                   <span>Check Answers</span>
                 </button>
               ) : (
-                score &&
-                score.percentage < 100 && (
-                  <button
-                    onClick={handleExportAnki}
-                    className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-purple-600 dark:bg-[#c6a0f6] hover:bg-purple-700 dark:hover:bg-[#b7bdf8] text-white dark:text-[#181926] text-xs font-bold shadow-xs cursor-pointer"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Export Mistakes to Anki</span>
-                  </button>
+                score && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleExportResult}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-purple-300 dark:border-[#c6a0f6]/40 bg-purple-50/50 dark:bg-[#24273a] text-purple-700 dark:text-[#c6a0f6] text-xs font-semibold hover:bg-purple-100 dark:hover:bg-[#363a4f] cursor-pointer shadow-xs transition-colors"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>Export Result</span>
+                    </button>
+                    {score.percentage < 100 && (
+                      <button
+                        onClick={handleExportAnki}
+                        className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-purple-600 dark:bg-[#c6a0f6] hover:bg-purple-700 dark:hover:bg-[#b7bdf8] text-white dark:text-[#181926] text-xs font-bold shadow-xs cursor-pointer"
+                      >
+                        <Download className="w-3.5 h-3.5" />
+                        <span>Export Mistakes to Anki</span>
+                      </button>
+                    )}
+                  </div>
                 )
               )}
             </div>
