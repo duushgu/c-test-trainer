@@ -6,9 +6,21 @@ export interface RawPassageData {
   batteryId: string;
   batteryTitle: string;
   rawText: string;
+  targetGaps?: number;
 }
 
-export const PRESET_BATTERIES = [
+export interface PresetBattery {
+  id: string;
+  title: string;
+  description: string;
+  difficulty: string;
+  category: string;
+  passagesCount?: number;
+  gapsPerPassage?: number;
+  timeLimitMinutes?: number;
+}
+
+export const PRESET_BATTERIES: PresetBattery[] = [
   {
     id: 'battery-1',
     title: 'Battery 1: Theoretical Physics & Mathematical Sciences',
@@ -57,6 +69,66 @@ export const PRESET_BATTERIES = [
     description: 'Urbanization dynamics, collective memory, common-pool resources, and language preservation.',
     difficulty: 'B2/C1',
     category: 'Society & Ecology',
+  },
+  {
+    id: 'battery-8',
+    title: 'Battery 8: UAB Set 1 — Technology & Society',
+    description: 'Phones in classrooms, SpaceX, electric scooters, and the challenges of gentrification.',
+    difficulty: 'B2',
+    category: 'UAB Exam Sets',
+    passagesCount: 4,
+    gapsPerPassage: 25,
+    timeLimitMinutes: 20,
+  },
+  {
+    id: 'battery-9',
+    title: 'Battery 9: UAB Set 2 — Gender, Identity & Culture',
+    description: 'Female heads of state, school shyness, digital influencers, and the origin of tapas.',
+    difficulty: 'B2',
+    category: 'UAB Exam Sets',
+    passagesCount: 4,
+    gapsPerPassage: 25,
+    timeLimitMinutes: 20,
+  },
+  {
+    id: 'battery-10',
+    title: 'Battery 10: UAB Set 3 — Family, Media & Festivals',
+    description: 'Only children, procrastination, commercial breaks, and Glastonbury Music Festival.',
+    difficulty: 'B2',
+    category: 'UAB Exam Sets',
+    passagesCount: 4,
+    gapsPerPassage: 25,
+    timeLimitMinutes: 20,
+  },
+  {
+    id: 'battery-11',
+    title: 'Battery 11: UAB Set 4 — Mind, Freedom & Habits',
+    description: 'Nature vs. nurture, fear of flying, free speech, and the decline in reading.',
+    difficulty: 'B2',
+    category: 'UAB Exam Sets',
+    passagesCount: 4,
+    gapsPerPassage: 25,
+    timeLimitMinutes: 20,
+  },
+  {
+    id: 'battery-12',
+    title: 'Battery 12: UAB Set 5 — History, Work & Generations',
+    description: 'Cardiff history, remote work downsides, immigration stories, and generation gaps.',
+    difficulty: 'B2',
+    category: 'UAB Exam Sets',
+    passagesCount: 4,
+    gapsPerPassage: 25,
+    timeLimitMinutes: 20,
+  },
+  {
+    id: 'battery-13',
+    title: 'Battery 13: UAB Set 6 — Education, Pets & Democracy',
+    description: 'University costs, exotic pets, unexpected romance, and votes for teenagers.',
+    difficulty: 'B2',
+    category: 'UAB Exam Sets',
+    passagesCount: 4,
+    gapsPerPassage: 25,
+    timeLimitMinutes: 20,
   },
 ];
 
@@ -388,5 +460,233 @@ export const RAW_PASSAGES: RawPassageData[] = [
     domain: 'Human Ecology',
     difficulty: 'C2',
     rawText: `The Earth system sciences framework of planetary boundaries defines a safe operating space for human civilizational development within nine critical bio-physical processes. Anthropogenic resource extraction and atmospheric carbon emissions threaten to trigger irreversible nonlinear tipping cascades across polar ice sheets, tropical rainforests, and marine ecosystems. Complex adaptive social-ecological systems exhibit dynamic thresholds where moderate environmental disturbances can precipitate sudden regime shifts into vastly degraded stability states. Fostering socio-ecological resilience requires replacing extractive economic models with regenerative circular resource loops and equitable adaptive stewardship. Navigating these interconnected planetary crises demands unprecedented international scientific coordination and transformative institutional realignments across human societies.`,
+  },
+
+  // ==================== BATTERY 8: UAB Set 1 — Technology & Society ====================
+  {
+    id: 'uab1-01',
+    batteryId: 'battery-8',
+    batteryTitle: 'UAB Set 1: Technology & Society',
+    title: "Banning phones in classrooms",
+    domain: 'Education & Technology',
+    difficulty: 'B2',
+    rawText: `I can't stand it when students use their phones in my classes. It spoils the whole atmosphere and is a constant distraction. Instead of paying attention, they are glued to their screens throughout the whole class. It feels like they just do not care what I am teaching, which is incredibly frustrating if you have dedicated time and effort to making their learning experience as engaging as possible. In my honest opinion, a phone-free classroom just works better for everyone.`,
+  },
+  {
+    id: 'uab1-02',
+    batteryId: 'battery-8',
+    batteryTitle: 'UAB Set 1: Technology & Society',
+    title: "SpaceX",
+    domain: 'Space & Technology',
+    difficulty: 'B2',
+    rawText: `SpaceX, founded by Elon Musk in 2002, is a pioneering aerospace manufacturer and space transportation company. Its primary objective is to reduce the cost and complexity of space travel. SpaceX has earned praise for its Falcon rockets, which are notable for their reusability, allowing them to launch, return to Earth, and then take off again. In 2020, SpaceX achieved a milestone by sending astronauts to the International Space Station, and there are also ambitious plans for future Mars missions. SpaceX is, without a doubt, changing the way we approach space exploration.`,
+  },
+  {
+    id: 'uab1-03',
+    batteryId: 'battery-8',
+    batteryTitle: 'UAB Set 1: Technology & Society',
+    title: "Electric scooters",
+    domain: 'Urban Mobility',
+    difficulty: 'B2',
+    rawText: `Electric scooters have totally changed the way I get around the city. They are incredibly handy for those short trips, and have made daily life so much easier. One of the best things about them is how they help you avoid traffic jams, which is a real timesaver during rush hour. It is no wonder they are so popular. What also makes them so appealing is their eco-friendliness; no pollution, just a smooth, clean ride. What's not to like!`,
+  },
+  {
+    id: 'uab1-04',
+    batteryId: 'battery-8',
+    batteryTitle: 'UAB Set 1: Technology & Society',
+    title: "The challenge of gentrification",
+    domain: 'Urban Sociology',
+    difficulty: 'B2',
+    rawText: `Gentrification occurs when wealthier people move into an urban area, raising property prices and rents. This can improve neighbourhoods by reducing crime and increasing business opportunities. However, it also forces local residents, often with low incomes, to leave because they can no longer afford to live there. This displacement can break up communities and weaken local culture. As a result, gentrification can create tension between new and old residents. Balancing the benefits and challenges of gentrification is important to ensure that everyone in the community can thrive.`,
+  },
+
+  // ==================== BATTERY 9: UAB Set 2 — Gender, Identity & Culture ====================
+  {
+    id: 'uab2-01',
+    batteryId: 'battery-9',
+    batteryTitle: 'UAB Set 2: Gender, Identity & Culture',
+    title: "Female Heads of State",
+    domain: 'Gender & Politics',
+    difficulty: 'B2',
+    rawText: `For centuries, leadership positions at the highest levels of government were a male domain. However, the 21st century is witnessing a sharp increase in the number of women assuming the role of Head of State. Currently, nearly 30 nations are led by women, which is a significant increase when compared with just a decade ago. This reflects a growing recognition of women's leadership abilities and a global push for gender equality. Most political analysts expect this trend to continue, paving the way for a more gender balanced future.`,
+  },
+  {
+    id: 'uab2-02',
+    batteryId: 'battery-9',
+    batteryTitle: 'UAB Set 2: Gender, Identity & Culture',
+    title: "Me and my school shyness",
+    domain: 'Psychology',
+    difficulty: 'B2',
+    rawText: `Starting a new school year always brings a mix of excitement and anxiety. For someone shy like me, the anxiety often overshadows the excitement. Walking into a classroom full of unfamiliar faces can feel overwhelming. I often sit quietly, hoping nobody will approach me, and the fear of saying the wrong thing or being judged makes me stay silent even when I have something to contribute. However, over time, I have learned that small steps, like smiling at classmates or joining a club, can gradually help build confidence and ease the social anxiety.`,
+  },
+  {
+    id: 'uab2-03',
+    batteryId: 'battery-9',
+    batteryTitle: 'UAB Set 2: Gender, Identity & Culture',
+    title: "The impact of influencers and streamers",
+    domain: 'Digital Culture',
+    difficulty: 'B2',
+    rawText: `Influencers and streamers have a significant impact on young people. They often serve as role models, shaping trends and opinions. Many teenagers look up to these digital creators for inspiration and guidance on topics ranging from fashion to mental health. However, it is important to critically evaluate the content these individuals produce. Not all influencers promote healthy habits or values. Parents and educators must help young people develop digital literacy skills to navigate online content responsibly and distinguish between authentic voices and those driven purely by commercial gain.`,
+  },
+  {
+    id: 'uab2-04',
+    batteryId: 'battery-9',
+    batteryTitle: 'UAB Set 2: Gender, Identity & Culture',
+    title: "The origin of the tapa",
+    domain: 'Food & Culture',
+    difficulty: 'B2',
+    rawText: `We all love tapas — those delicious little Spanish snacks that come in endless varieties. But have you ever wondered where this tasty tradition comes from? The truth is, the origin of the tapa is a bit of a mystery. One popular story says that King Alfonso XIII of Spain ordered a glass of sherry to be covered with a slice of ham to keep flies out. Another account traces it back to the practice of covering drinks with bread or a small plate. Whatever its origin, the tapa has become a beloved cultural institution enjoyed worldwide.`,
+  },
+
+  // ==================== BATTERY 10: UAB Set 3 — Family, Media & Festivals ====================
+  {
+    id: 'uab3-01',
+    batteryId: 'battery-10',
+    batteryTitle: 'UAB Set 3: Family, Media & Festivals',
+    title: "Only children",
+    domain: 'Family Psychology',
+    difficulty: 'B2',
+    rawText: `The prevalence of single-child families is a growing demographic trend. This unique childhood experience presents both advantages and challenges. Only children often find themselves the centre of attention within the home, and they become the unchallenged focus of parental love and resources. However, such focused attention can also lead to excessive pressure to succeed and a fear of disappointing one's parents. Ultimately, being an only child fosters a complex and multifaceted upbringing.`,
+  },
+  {
+    id: 'uab3-02',
+    batteryId: 'battery-10',
+    batteryTitle: 'UAB Set 3: Family, Media & Festivals',
+    title: "Procrastination",
+    domain: 'Behavioral Psychology',
+    difficulty: 'B2',
+    rawText: `We've all experienced it — staring at a textbook instead of actually studying its content. Suddenly, cleaning your room or scrolling through social media feels infinitely more appealing. So what can we do to stay focussed on the task at hand? Here are a few tips: if something feels overwhelming, break it down into smaller steps that seem more manageable. Try a change of scene — sometimes a new environment can boost your motivation. Setting a specific time limit for a task can also help, as can rewarding yourself once you have completed it.`,
+  },
+  {
+    id: 'uab3-03',
+    batteryId: 'battery-10',
+    batteryTitle: 'UAB Set 3: Family, Media & Festivals',
+    title: "Commercial breaks",
+    domain: 'Media & Advertising',
+    difficulty: 'B2',
+    rawText: `Love them or hate them, commercial breaks are a fact of life when it comes to TV. They are a real pain in the neck when they interrupt your favourite show to bombard you with information on the latest gadget or snack. On the other hand, those few minutes away from the screen can be a good thing; it gives you the chance to make a cup of tea, or have a quick chat with whoever you are watching TV with. Without commercial breaks, we wouldn't have free-to-air television, so maybe they're not such a bad thing after all.`,
+  },
+  {
+    id: 'uab3-04',
+    batteryId: 'battery-10',
+    batteryTitle: 'UAB Set 3: Family, Media & Festivals',
+    title: "Glastonbury Music Festival",
+    domain: 'Music & Culture',
+    difficulty: 'B2',
+    rawText: `Glastonbury Festival, which takes place in Somerset, England, began in 1970 and has grown into one of the world's largest music festivals. It is held on the agricultural land of a local farmer and is famous for its eclectic mix of music, arts, and culture. Drawing crowds of over 200,000 people, it features hundreds of performances across multiple stages. Beyond music, it is also known for its commitment to sustainability, including renewable energy use and recycling initiatives. Glastonbury has become a cultural institution that celebrates creativity, community, and a spirit of togetherness.`,
+  },
+
+  // ==================== BATTERY 11: UAB Set 4 — Mind, Freedom & Habits ====================
+  {
+    id: 'uab4-01',
+    batteryId: 'battery-11',
+    batteryTitle: 'UAB Set 4: Mind, Freedom & Habits',
+    title: "Nature or nurture",
+    domain: 'Genetics & Psychology',
+    difficulty: 'B2',
+    rawText: `Do you ever wonder why you are good at maths or love to sing? Is it something you are born with as a result of your genes, or is it to do with your upbringing and surroundings? This conundrum has had scientists scratching their heads for centuries. Well, it turns out it is not really either/or! Instead, recent research suggests it is a complex interplay of both. Your genes might provide the potential for athletics, for instance, but it is your environment — sports facilities, encouraging parents — that turns that potential into reality.`,
+  },
+  {
+    id: 'uab4-02',
+    batteryId: 'battery-11',
+    batteryTitle: 'UAB Set 4: Mind, Freedom & Habits',
+    title: "The fear of flying",
+    domain: 'Psychology',
+    difficulty: 'B2',
+    rawText: `Flying can be scary, especially if it is your first time. The thought of being high above the ground in a metal tube can make anyone nervous. But remember, flying is one of the safest ways to travel. Pilots are highly trained, and planes are built to handle almost anything. To alleviate anxiety, breathing exercises are effective. Choosing a seat over the wing can reduce turbulence sensation. Noise-cancelling headphones and a good film or playlist can also help distract you. Focus on your destination and remind yourself that millions of people fly safely every single day.`,
+  },
+  {
+    id: 'uab4-03',
+    batteryId: 'battery-11',
+    batteryTitle: 'UAB Set 4: Mind, Freedom & Habits',
+    title: "Free speech",
+    domain: 'Political Philosophy',
+    difficulty: 'B2',
+    rawText: `Free speech is a cornerstone of democracy, and allows for the unfiltered exchange of ideas, fostering debate and progress. Nevertheless, the concept of free expression is more nuanced than it, at first, appears. Just because you have the right to say something does not necessarily mean that you should. Words can be harmful and can contribute to discrimination and violence. Therefore, many societies have laws that restrict certain types of expression, such as hate speech or incitement to violence. Striking the right balance between freedom of speech and protecting vulnerable groups from harm is an ongoing and complex societal challenge.`,
+  },
+  {
+    id: 'uab4-04',
+    batteryId: 'battery-11',
+    batteryTitle: 'UAB Set 4: Mind, Freedom & Habits',
+    title: "The decline in reading",
+    domain: 'Media & Literacy',
+    difficulty: 'B2',
+    rawText: `The decline in reading is a growing concern. With the rise of digital media, people are spending less time with printed books. This shift impacts our ability to focus and think critically as reading nurtures our imagination and expands our vocabulary. Libraries and schools are increasingly using creative strategies to encourage reading, such as book clubs, author visits, and reading challenges. While digital reading has its place, there is something irreplaceable about the experience of immersing yourself in a physical book that engages the mind in a uniquely deep and sustained way.`,
+  },
+
+  // ==================== BATTERY 12: UAB Set 5 — History, Work & Generations ====================
+  {
+    id: 'uab5-01',
+    batteryId: 'battery-12',
+    batteryTitle: 'UAB Set 5: History, Work & Generations',
+    title: "The history of Cardiff",
+    domain: 'History',
+    difficulty: 'B2',
+    rawText: `A Celtic tribe called the Silures originally inhabited the area where Cardiff is now situated over 2000 years ago. However, the city's story begins with the Romans, who built a fort here around 55 AD. Although it grew into a bustling market town in the Middle Ages, its real transformation happened during the Industrial Revolution when Cardiff Docks became the largest coal-exporting port in the world. The majority of Cardiff's best known landmarks date back to this period. During the 20th century, the city's population exploded, and in 1955, it became the capital of Wales. Today, Cardiff is a cool mix of old and new, with a stunning castle, a modern waterfront, and even the world's oldest record shop!`,
+  },
+  {
+    id: 'uab5-02',
+    batteryId: 'battery-12',
+    batteryTitle: 'UAB Set 5: History, Work & Generations',
+    title: "The downsides of remote work",
+    domain: 'Work & Society',
+    difficulty: 'B2',
+    rawText: `Remote work has its challenges, one major downside being the lack of social interaction. Working from home can lead to feelings of isolation, as you miss out on the spontaneous conversations with colleagues that naturally occur in an office environment. Additionally, the boundaries between work and personal life can become blurred, making it difficult to switch off and truly relax after the working day. Technical issues, like poor internet connections, can also disrupt productivity. Finding effective strategies to maintain social connections and establish clear work-life boundaries is essential for long-term wellbeing when working remotely.`,
+  },
+  {
+    id: 'uab5-03',
+    batteryId: 'battery-12',
+    batteryTitle: 'UAB Set 5: History, Work & Generations',
+    title: "Friedrich Trump's immigration story",
+    domain: 'Migration & History',
+    difficulty: 'B2',
+    rawText: `Friedrich Trump was Donald Trump's grandfather, who was born in a small town in Bavaria in 1869. At the age of 16, he emigrated to the United States due to a lack of job opportunities in his hometown. He settled in New York and worked as a barber before eventually moving westward to seek his fortune during the gold rush era. Friedrich established hotels and restaurants in the Pacific Northwest, building the family's early wealth through hard work and entrepreneurial spirit. His story is a classic American immigration narrative, reflecting the broader wave of European migration that shaped the nation during the late nineteenth century.`,
+  },
+  {
+    id: 'uab5-04',
+    batteryId: 'battery-12',
+    batteryTitle: 'UAB Set 5: History, Work & Generations',
+    title: "Generation Gaps",
+    domain: 'Social Psychology',
+    difficulty: 'B2',
+    rawText: `Generation gaps are the differences in opinions, values, and behaviours between younger and older generations. These gaps can lead to misunderstandings and conflict, especially in families. For instance, while older generations may value tradition and stability, younger people often prioritise innovation and social change. Technology plays a big role in widening these gaps, as younger generations are far more digitally fluent. Bridging the generation gap requires open communication, mutual respect, and a genuine willingness to listen to and learn from each other's experiences and perspectives across age divides.`,
+  },
+
+  // ==================== BATTERY 13: UAB Set 6 — Education, Pets & Democracy ====================
+  {
+    id: 'uab6-01',
+    batteryId: 'battery-13',
+    batteryTitle: 'UAB Set 6: Education, Pets & Democracy',
+    title: "Can you afford to go to university?",
+    domain: 'Education',
+    difficulty: 'B2',
+    rawText: `If you are thinking about university but worried about the cost, you are not alone. Tuition fees, books, and living expenses add up quickly, making higher education feel out of reach for many. Scholarships help, but are extremely competitive. Loans? They can leave you with a mountain of debt. It is frustrating when your dreams clash with your bank account. But do not give up! There are many part-time study options and financial aid programs that can help. Keep exploring your options and stay determined, because investing in your education is one of the most important decisions you will ever make.`,
+  },
+  {
+    id: 'uab6-02',
+    batteryId: 'battery-13',
+    batteryTitle: 'UAB Set 6: Education, Pets & Democracy',
+    title: "Exotic pets",
+    domain: 'Animal Welfare',
+    difficulty: 'B2',
+    rawText: `Have you ever thought about getting an exotic pet? Sure, having a snake, parrot, or even a tiger sounds really cool, but it is not all fun and games. These animals need special care, diets, and environments that can be tricky to manage. Plus, they can carry diseases that are harmful to humans and other pets. So, before you dive into the world of exotic pet ownership, make sure you do your research. Consider adopting a more traditional pet from a local shelter instead — you will be giving a deserving animal a loving home while avoiding the considerable challenges of exotic pet care.`,
+  },
+  {
+    id: 'uab6-03',
+    batteryId: 'battery-13',
+    batteryTitle: 'UAB Set 6: Education, Pets & Democracy',
+    title: "Meeting my girlfriend",
+    domain: 'Personal Narrative',
+    difficulty: 'B2',
+    rawText: `I met my girlfriend in the most unexpected way. I was at a coffee shop, trying to find a place to sit, when she offered to share her table. We just started talking and ended up chatting for hours. We exchanged numbers, and a week later we met up for a walk in the park. That walk turned into dinner, and dinner turned into a relationship neither of us had planned for. Sometimes the best things in life happen when you least expect them. I am so glad I decided to go to that coffee shop on that particular afternoon, because it changed my life completely.`,
+  },
+  {
+    id: 'uab6-04',
+    batteryId: 'battery-13',
+    batteryTitle: 'UAB Set 6: Education, Pets & Democracy',
+    title: "Votes for teenagers",
+    domain: 'Democracy & Youth',
+    difficulty: 'B2',
+    rawText: `Hey, 16-year-olds! Imagine having a say in decisions that affect your future. Giving you the vote means your voice matters right now, not just later. It is a chance to shape policies on education, climate change, and your community. Some argue that teenagers lack the maturity or knowledge to vote responsibly. However, research shows that civically engaged young people make thoughtful and informed choices. Countries like Austria and Scotland already allow 16-year-olds to vote, and report positive outcomes in terms of youth engagement and democratic participation overall.`,
   },
 ];

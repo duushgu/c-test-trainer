@@ -31,25 +31,30 @@ export const TestBatteryView: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState<number>(25 * 60);
 
   // Filter batteries by category
-  const categories = ['All', 'STEM', 'Social Sciences', 'Humanities & History', 'Arts & Culture', 'Society & Ecology'];
+  const categories = ['All', 'UAB Exam Sets', 'STEM', 'Social Sciences', 'Humanities & History', 'Arts & Culture', 'Society & Ecology'];
   const filteredBatteries = useMemo(() => {
     if (selectedCategory === 'All') return PRESET_BATTERIES;
     return PRESET_BATTERIES.filter((b) => b.category === selectedCategory || (selectedCategory.includes('Humanities') && b.category.includes('Humanities')));
   }, [selectedCategory]);
 
+  const currentBatteryConfig = useMemo(() => {
+    return PRESET_BATTERIES.find((b) => b.id === selectedBatteryId);
+  }, [selectedBatteryId]);
+
   // Convert raw passage data into full C-Test objects
   const batteryPassages: CTestPassage[] = useMemo(() => {
     const rawList = RAW_PASSAGES.filter((p) => p.batteryId === selectedBatteryId);
+    const targetGaps = currentBatteryConfig?.gapsPerPassage || 20;
     return rawList.map((raw) =>
       generateCTest(raw.rawText, {
         id: raw.id,
         title: raw.title,
         domain: raw.domain,
         difficulty: raw.difficulty,
-        targetGaps: 20,
+        targetGaps: raw.targetGaps || targetGaps,
       })
     );
-  }, [selectedBatteryId]);
+  }, [selectedBatteryId, currentBatteryConfig]);
 
   // Persist answers in local storage
   useEffect(() => {
@@ -108,16 +113,19 @@ export const TestBatteryView: React.FC = () => {
     setAllAnswers(updated);
     setIsSubmitted(false);
     setBatteryScore(null);
-    setTimeLeft(25 * 60);
+    const defaultMins = currentBatteryConfig?.timeLimitMinutes || 25;
+    setTimeLeft(defaultMins * 60);
     setActivePassageIndex(0);
   };
 
   const handleSelectBattery = (batteryId: string) => {
+    const targetConfig = PRESET_BATTERIES.find((b) => b.id === batteryId);
+    const mins = targetConfig?.timeLimitMinutes || 25;
     setSelectedBatteryId(batteryId);
     setActivePassageIndex(0);
     setIsSubmitted(false);
     setBatteryScore(null);
-    setTimeLeft(25 * 60);
+    setTimeLeft(mins * 60);
     setIsTimerActive(false);
   };
 
@@ -172,9 +180,14 @@ export const TestBatteryView: React.FC = () => {
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#181926] text-slate-700 dark:text-[#b8c0e0] border border-slate-200 dark:border-[#363a4f]">
-                  {battery.difficulty}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#181926] text-slate-700 dark:text-[#b8c0e0] border border-slate-200 dark:border-[#363a4f]">
+                    {battery.difficulty}
+                  </span>
+                  <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-slate-100 dark:bg-[#181926] text-slate-500 dark:text-[#939ab7] border border-slate-200 dark:border-[#363a4f]">
+                    {battery.passagesCount || 5} × {battery.gapsPerPassage || 20} gaps
+                  </span>
+                </div>
                 {isSelected && (
                   <span className="w-2 h-2 rounded-full bg-purple-600 dark:bg-[#c6a0f6] animate-pulse" />
                 )}
