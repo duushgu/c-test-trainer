@@ -132,9 +132,9 @@ export const PassageCard: React.FC<PassageCardProps> = ({
               const evalResult = getEvaluation(gap.id);
               const userVal = userAnswers[gap.id] || '';
 
-              // Dynamic width based on gap letter count
+              // Dynamic width: gap character count in ch units PLUS 1.5rem for px-1.5 padding (6px each side)
               const widthStyle = {
-                width: `${Math.max(gap.gapLength + 0.8, 2.8)}ch`,
+                width: `calc(${Math.max(gap.gapLength, 2)}ch + 1.5rem)`,
               };
 
               return (
