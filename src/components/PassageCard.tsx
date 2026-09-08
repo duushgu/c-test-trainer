@@ -170,7 +170,7 @@ export const PassageCard: React.FC<PassageCardProps> = ({
                         value={userVal}
                         onChange={(e) => handleChange(e, gap, gap.gapIndex)}
                         onKeyDown={(e) => handleKeyDown(e, gap, gap.gapIndex)}
-                        placeholder={showHints ? gap.suffix[0] + '·'.repeat(gap.gapLength - 1) : '·'.repeat(gap.gapLength)}
+                        placeholder={showHints ? gap.suffix[0] : ''}
                         className="h-full px-1.5 text-center font-mono font-bold bg-transparent text-purple-700 dark:text-[#b7bdf8] focus:outline-none focus:ring-0 border-0 placeholder:text-slate-400 dark:placeholder:text-[#6e738d]"
                       />
                     </span>
